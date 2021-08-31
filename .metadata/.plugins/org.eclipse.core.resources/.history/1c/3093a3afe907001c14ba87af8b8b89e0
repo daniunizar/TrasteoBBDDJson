@@ -1,0 +1,10 @@
+package json01;
+
+public class CreateJSONFile {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

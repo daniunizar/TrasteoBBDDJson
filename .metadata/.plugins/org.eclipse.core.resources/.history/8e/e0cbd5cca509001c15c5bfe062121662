@@ -1,0 +1,88 @@
+package combo03;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		try {
+			//PASO 1. Crear la conexión a la BBDD
+			//Url, usuario y contraseña
+			//driver:protocolodriver:/url:puerto/nombreBBDD  usuario  password
+			//SHOW VARIABLES WHERE VARIABLE_NAME IN ('hostname', 'port'); Se pone en SQL en MYSQL para saber el nombre y el puerto, de ahí sacamos el 3306 que además es el por defecto para MYSQL
+			Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/novadevs", "root", ""); //Creamos objeto de tipo Connection
+			
+			//PASO 2. Creamos el objeto de tipo Statement
+			Statement miStatement = miConexion.createStatement(); //Creamos el objeto de tipo Statement
+			
+			//PASO 3. Ejecutar sentencia SQL
+			String miSentenciaSql = "SELECT * FROM JAVA_CARGOS";
+			ResultSet miResultset = miStatement.executeQuery(miSentenciaSql); //Devuelve un Objeto de tipo ResultSet
+			
+			//PASO 4. Leer el resulset recorriéndolo
+			while(miResultset.next()) {//mientras haya un registro hacia adelante del cursor nos desplazamos a él y hacemos lo siguiente...
+				System.out.print(miResultset.getString("ID")+" ");
+				System.out.print(miResultset.getString("NOMBRE")+" ");
+				System.out.print(miResultset.getString("APELLIDO")+" ");
+				System.out.println(miResultset.getString("CARGO"));
+			}
+		}catch(Exception e) {
+			System.out.println("La conexión no se pudo realizar");
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		//PASO 1. Crear la conexión a la BBDD
+		try {
+			Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/novadevs", "root", ""); //Creamos objeto de tipo Connection
+
+			//PASO 2. Preparar la consulta
+			PreparedStatement sentenciaSQL = miConexion.prepareStatement("SELECT ID, NOMBRE, APELLIDO, CARGO FROM JAVA_CARGOS"
+			+ " WHERE NOMBRE=? AND APELLIDO=?");
+			
+			//PASO 3. Establecer los parámetros de consulta. Orden de interrogante y valor
+			sentenciaSQL.setString(1, "HARRY");//nombre y apellido que son los 2 interrogantes son de tipo string, por eso usamos setString();
+			sentenciaSQL.setString(2, "POTTER");
+			
+			//PASO 4. Ejecutar la consulta y recuperar de ella un objeeto ResultSet
+			ResultSet rs = sentenciaSQL.executeQuery();
+			
+			//PASO 5. Leer la consulta
+			while(rs.next()) {
+				System.out.print(rs.getString(1)+" ");
+				System.out.print(rs.getString(2)+" ");
+				System.out.print(rs.getString(3)+" ");
+				System.out.println(rs.getString(4)+" ");
+				PreparedStatement sentenciaSQL2 = miConexion.prepareStatement("SELECT * FROM JAVA_RELACIONES"
+						+ " WHERE ID_JEFE=?");
+				sentenciaSQL.setString(1, rs.getString(1));
+				ResultSet rs2 = sentenciaSQL2.executeQuery();
+				while(rs2.next()) {
+					System.out.print(rs2.getString(2));
+				}
+				rs2.close();/
+
+
+			}
+			rs.close();//cerrar el resultset y liberar la memoria
+			
+		
+		}catch(SQLException e) {
+			System.out.println("Error al conectar con la BBDD");
+			e.printStackTrace();
+
+		}
+	}
+
+}

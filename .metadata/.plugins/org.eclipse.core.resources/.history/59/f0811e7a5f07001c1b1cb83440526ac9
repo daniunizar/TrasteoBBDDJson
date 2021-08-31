@@ -1,0 +1,15 @@
+package conectaBD;
+
+public class Conecta_Agenda {
+	public static void main(String[] args) {
+		try {
+			//Url, usuario y contraseña
+			//driver:protocolodriver:/url:puerto/nombreBBDD
+			//SHOW VARIABLES WHERE VARIABLE_NAME IN ('hostname', 'port'); Se pone en SQL en MYSQL para saber el nombre y el puerto, de ahí sacamos el 3306 que además es el por defecto para MYSQL
+			
+			Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "");
+		}catch(Exception e) {
+			
+		}
+	}
+}

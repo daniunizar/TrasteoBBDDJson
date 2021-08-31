@@ -1,0 +1,23 @@
+package conectaBD;
+
+import java.sql.Connection;
+import java.sql.*;
+
+public class Consulta_Preparada {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//PASO 1. Crear la conexión a la BBDD
+		try {
+			Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", ""); //Creamos objeto de tipo Connection
+
+			//PASO 2. Preparar la consulta
+			PreparedStatement = sentenciaSQL = miConexion.prepareStatement();
+			
+		}catch(SQLException e) {
+			
+		}
+		
+	}
+
+}

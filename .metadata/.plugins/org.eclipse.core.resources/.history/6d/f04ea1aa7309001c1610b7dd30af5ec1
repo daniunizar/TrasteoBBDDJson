@@ -1,0 +1,3 @@
+module json03 {
+	requires gson;
+}

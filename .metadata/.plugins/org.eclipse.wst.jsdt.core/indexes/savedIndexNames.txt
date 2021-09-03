@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+C:\Users\Stuka\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+309239544.index
+2402155223.index
+1916886123.index
+3010879259.index
+3136247592.index
+602277522.index
+930496333.index

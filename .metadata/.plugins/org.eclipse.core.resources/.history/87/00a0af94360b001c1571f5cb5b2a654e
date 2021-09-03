@@ -1,0 +1,6 @@
+<html>
+<body>
+<h1>Encapsulación de forma estática para facilitar el ejemplo</h1>
+<%=jsp01.Calculos.metodoSuma(5, 6)%>
+</body>
+</html>

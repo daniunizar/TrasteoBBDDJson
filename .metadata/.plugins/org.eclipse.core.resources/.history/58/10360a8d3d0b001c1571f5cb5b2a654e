@@ -1,0 +1,9 @@
+<html>
+<body>
+<form action="09request.jsp">
+	Nombre:<input type="text" name="nombre">
+	Apellido:<input type="text" name="apellido">
+	<input type="submit" value="Enviar">
+</form>
+</body>
+</html>

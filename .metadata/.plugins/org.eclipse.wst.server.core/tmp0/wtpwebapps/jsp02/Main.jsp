@@ -1,6 +1,8 @@
 <%@ page import="jsp02.Empleado" %>
+<%@ page import="jsp02.Lectura" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.io.*" %>
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="com.google.gson.GsonBuilder" %>
 
@@ -17,13 +19,30 @@
 Class.forName("com.mysql.jdbc.Driver");//En references libraries
 Class.forName("com.google.gson.Gson");
 Class.forName("com.google.gson.GsonBuilder");
+
+
+//Lectura de detalles de conexión
+Lectura lectura = new Lectura();
+
+String url_detalles = "detalles.txt";
+String url_usuario = "user.txt";
+String url_pass = "pass.txt";
+String detalles = lectura.lee(url_detalles);
+String usuario = lectura.lee(url_usuario);
+String pass = lectura.lee(url_pass);
+System.out.println("Detalles de conexión: "+detalles);
+System.out.println("Usuario: "+usuario);
+String user = usuario;
+//String pass = lectura.lee(url_pass);
+//lectura.listaDirActual();
 try {
 	//PASO 1. Crear la conexión a la BBDD
 	//Url, usuario y contraseña
 	//driver:protocolodriver:/url:puerto/nombreBBDD  usuario  password
 	//SHOW VARIABLES WHERE VARIABLE_NAME IN ('hostname', 'port'); Se pone en SQL en MYSQL para saber el nombre y el puerto, de ahí sacamos el 3306 que además es el por defecto para MYSQL
-	Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/novadevs", "root", ""); //Creamos objeto de tipo Connection
-	
+	Connection miConexion = DriverManager.getConnection(detalles, user, pass); //Creamos objeto de tipo Connection
+	//Connection miConexion = DriverManager.getConnection(detalles, "root", ""); //Creamos objeto de tipo Connection
+
 	//PASO 2. Creamos el objeto de tipo Statement
 	Statement miStatement = miConexion.createStatement(); //Creamos el objeto de tipo Statement
 	

@@ -1,1 +1,1 @@
-jdbc:mysql://localhost:3306/novadevs
+jdbc:oracle://biv-pdlegacy-01.aragon.local:1521/desapp1.dga.es

@@ -20,10 +20,11 @@ public class Main {
 			
 			Connection miConexion = DriverManager.getConnection(detalles, user, pass);
 			Statement miStatement = miConexion.createStatement(); 
-			String sentenciaSql="SELECT * FROM JAVA_EMPLEADOS";
+			System.out.println("Conexión realizada con éxito");
+			String sentenciaSql="SELECT * FROM ORG_CARGO";
 			ResultSet miResultset = miStatement.executeQuery(sentenciaSql); //Devuelve un Objeto de tipo ResultSet
 			while(miResultset.next()) {
-				System.out.println(miResultset.getString("NOMBRE"));//RECUPERAMOS A PARTIR DE LOS ALIAS
+				System.out.println(miResultset.getString("ID_CARGO"));//RECUPERAMOS A PARTIR DE LOS ALIAS
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

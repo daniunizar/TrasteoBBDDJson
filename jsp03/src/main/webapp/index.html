@@ -4,12 +4,25 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="./CSS/styles.css" type="text/css">
+<style>
+	#zona_de_recuperacion{
+	border: 1px solid blue;
+	}
+	#zona_de_errores{
+	border: 1px solid red;
+	}
+</style>
 </head>
 <body>
 <h1>Index</h1>
+<p>La zona de recuperación del ajax tiene borde azul</p>
+<p>La zona de errores del ajax tiene borde rojo</p>
 <a href="Main.jsp">Enlace</a>
-    <input type="button" value="Mostrar Resultado Consulta BBDD" onclick="recuperaTexto();">
+    <input type="button" value="Mostrar JSON de la consulta" onclick="recuperaTexto();">
     <div id="zona_de_recuperacion">
+        <!--Aquí dentro insertaremos el contenido recuperado de la BBDD-->
+    </div>
+    <div id="zona_de_errores">
         <!--Aquí dentro insertaremos el contenido recuperado de la BBDD-->
     </div>
     <ul id="myList">
@@ -20,27 +33,29 @@
         function recuperaTexto(){
             var nombre = "Harry"; //Recuperar valores de formulario, campo oculto, etc.
             var apellido = "Potter";
-            var url = "Main.jsp";
+            var url = "Response.jsp";
             const xhttp = new XMLHttpRequest(); //Creamos el objeto ajax
             xhttp.onreadystatechange = function(){//Cuando ese objeto cambie de estado, haremos lo que introduzcamos en esta función anónima
                 //Como el cambio no tiene por qué ser a nuestro favor, debemos comprobar que recuperamos un 4 y un 200
                 if(this.readyState == 4 && this.status ==200){ //Si la conexión ha sido un éxito...
-                  //var textoRecuperado = JSON.parse(this.responseText); //Convierte lo recuperado en JSON
-                  	var textoRecuperado = this.responseText; //Sólo recupera, sin transformar. En principio al recuperar desde java no es JSON, sino String
+                  	var textoRecuperado = JSON.parse(this.responseText); //Convierte lo recuperado en JSON
+                  	
+                  	//var textoRecuperado = this.responseText; //Sólo recupera, sin transformar. En principio al recuperar desde java no es JSON, sino String
                   	//var textoRecuperado = JSON.stringify(this.responseText);// Convierte lo recuperado en String
                 	//document.getElementById("zona_de_recuperacion").innerHTML="<p>"+textoRecuperado+"</p>";//Insertamos los valores recuperados (Una echo de php, un json, etc.) en el interior de este div y a su vez en un párrafo
-                	  var node = document.createElement("P");
-                	  var textnode = document.createTextNode(textoRecuperado);
-                	  node.appendChild(textnode);
-                	  document.getElementById("zona_de_recuperacion").appendChild(node);
-
+                       for (x of textoRecuperado) {
+                    		  var node = document.createElement("LI");
+                        	  var textnode = document.createTextNode(x.nombre);
+                        	  node.appendChild(textnode);
+                        	  document.getElementById("zona_de_recuperacion").appendChild(node);
+                    		}  
                 }else{//Si hemos fallado en la conexión y recuperación de esa información
-                    document.getElementById("zona_de_recuperacion").innerHTML="<p>Ha habido un error, esperábamos respuesta 4-200 y hemos recibido "+this.readyState+" - "+this.status+"</p>";
+                    document.getElementById("zona_de_errores").innerHTML="<p>Ha habido un error, esperábamos respuesta 4-200 y hemos recibido "+this.readyState+" - "+this.status+"</p>";
                 }
             };
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.responseType = 'json';
+            //xhttp.responseType = 'json';
             xhttp.send("nombre="+nombre+"&apellido="+apellido); //Variables y valore que queremos enviar como POST. P.e. valores para el WHERE de la consulta SQL
         }
     </script>

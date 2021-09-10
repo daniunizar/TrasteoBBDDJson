@@ -14,18 +14,16 @@ public class Conexion {
 
     private static Connection conexion;
     private static Configuracion configuracion = new Configuracion();
-    private static String datos_config = configuracion.getData("configLocal.conf");
+    private static String datos_config = configuracion.getData("configRemoto.conf");
     
     //CONEXIÓN DESDE UN SÓLO FICHERO
     private static String datos_configuracion[] = datos_config.split(" ");
-    private static final String url = datos_configuracion[0]; //url que conecta a la base de datos de la máquina virtual
-    private static final String usuario = datos_configuracion[1];
-    private static final String clave = (datos_configuracion.length==3)?datos_configuracion[2]:"";
-    /*private static final String usuario = configuracion.getData("userLocal.conf");
-    private static final String clave = configuracion.getData("passLocal.conf");
-    //private static final String url = "jdbc:oracle:thin:@192.168.0.20:1521:XE"; //url que conecta a la base de datos de la máquina virtual
-    private static final String url = configuracion.getData("detallesLocal.conf"); //url que conecta a la base de datos de la máquina virtual
-     */
+    //private static final String url = datos_configuracion[0]; //url que conecta a la base de datos de la máquina virtual
+    //private static final String usuario = datos_configuracion[1];
+    //private static final String clave = (datos_configuracion.length==3)?datos_configuracion[2]:"";
+    private static final String url = "jdbc:oracle:thin:@13.36.189.88:1521/xe";
+    private static final String usuario = "dmunoz";
+    private static final String clave = "cCSYp9ktoDtm";
 
     /**
      * Método que establece conexión con la base de datos.

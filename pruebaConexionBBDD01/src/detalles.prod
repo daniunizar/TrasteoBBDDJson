@@ -1,1 +1,1 @@
-jdbc:oracle://biv-pdlegacy-01.aragon.local:1521/desapp1.dga.es
+jdbc:oracle:thin:@13.36.189.88:1521/xe

@@ -42,4 +42,8 @@ public class Configuracion {
 		    }
 		}
 	}
+	public void getRutaActual() {
+		System.out.println("Ruta actual: "+this.getClass().getClassLoader().getResource("").getPath());
+	}
+	
 }
